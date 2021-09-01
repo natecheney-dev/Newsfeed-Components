@@ -86,14 +86,67 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Random Stuff',
+    date: 'Random Stuff',
+    firstParagraph: `Random Stuff Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff   `,
+
+    secondParagraph: `Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff   `,
+
+    thirdParagraph: `Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  Random Stuff  `
   }
 ];
+
+
+
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
+*/
+const articlesDiv = document.querySelector('.articles');
 
+function articleMaker({title, date, firstParagraph, secondParagraph, thirdParagraph}) {
+
+  const article = document.createElement('div');
+  const artTitle = document.createElement('h2');
+  const artDate = document.createElement('p');
+  const paraOne = document.createElement('p');
+  const paraTwo = document.createElement('p');
+  const paraThree = document.createElement('p');
+  const expandButton = document.createElement('span');
+
+  
+  
+  article.appendChild(artTitle);
+  article.appendChild(artDate);
+  article.appendChild(paraOne);
+  article.appendChild(paraTwo);
+  article.appendChild(paraThree);
+  article.appendChild(expandButton);
+
+  
+  artTitle.textContent = title;
+  artDate.textContent = date;
+  paraOne.textContent = firstParagraph;
+  paraTwo.textContent = secondParagraph;
+  paraThree.textContent = thirdParagraph;
+  expandButton.textContent = 'expand';
+  
+
+  article.classList.add('article');
+  artDate.classList.add('date');
+  expandButton.classList.add('expandButton');
+
+  
+  // div class="header">
+  //     <img class="menu-button" src="./assets/menu.png"/>
+  //     <h1>Lambda School Newsfeed</h1>
+  //   </div>
+  //   <div class="articles"></div>
+/*
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -102,15 +155,37 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+  */
 
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.
 
-  Step 3: Don't forget to return something from your function!
 
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
-  to create a div.article element and append it to the DOM inside div.articles (see index.html).
 
-  Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
-  Refresh the page to see the new article.
-*/
+
+// Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+// This listener should toggle the class 'article-open' on div.article.
+
+  expandButton.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+    })
+
+  
+
+//   Step 3: Don't forget to return something from your function!
+    return article; 
+  }
+//   Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
+//   to create a div.article element and append it to the DOM inside div.articles (see index.html).
+
+
+
+const dataElems = data.map(itemElem => {
+  return articleMaker(itemElem);
+})
+
+
+dataElems.forEach(itemElems => {
+  articlesDiv.appendChild(itemElems);
+})
+//   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
+//   Refresh the page to see the new article.
+// 
